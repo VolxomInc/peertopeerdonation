@@ -1,0 +1,30 @@
+
+
+// Start with assigning color names to specific hex values.
+$white:  rgb(255,255,255) ;
+$black:  rgb(0,0,0);
+$red:    #d9534f;
+$orange: #f0ad4e;
+$yellow: #ffd500;
+$green:  #5cb85c;
+$blue:   #0275d8;
+$teal:   #5bc0de;
+$pink:   #ff5b77;
+$purple: #613d7c;
+$golden : #000000;
+$blue-custom : #2a4d68;
+
+// Create grayscale
+$gray-dark:                 rgb(21,21,21);
+$gray:                      #181A1B;
+$gray-light:                #515151;
+$gray-lighter:              #eceeef;
+$gray-lightest:             #f7f7f9;
+
+// Reassign color vars to semantic color scheme
+$brand-primary:             #000000;
+$brand-success:             $green;
+$brand-info:                $teal;
+$brand-warning:             $orange;
+$brand-danger:              $red;
+$brand-inverse:             $gray-dark;

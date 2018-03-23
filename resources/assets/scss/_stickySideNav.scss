@@ -1,0 +1,48 @@
+/* _____________________________________
+
+   09. Sidebar
+   _____________________________________ */
+
+.affix {
+  position: fixed;
+  right:22px;
+}
+
+#sidebar li:before {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  //left: 0;
+  content: "\A";
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+#sidebar li.active:before {
+  background-color: transparent;
+}
+
+#sidebar > li > a {
+  padding-left: 30px;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  font-size:16px;
+  color: transparent;
+}
+
+#sidebar > li.active > a,
+#sidebar > li > a:hover {
+  color: #ffffff;
+  background-color: transparent;
+  font-size:18px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent !important;
+color: #ffffff;
+}

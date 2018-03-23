@@ -1,0 +1,19 @@
+@media only screen and (max-width:370px){
+	.navbar-section img{
+		width: 74%;
+	}
+	.navbar-section .navbar-toggler{
+		margin-top: 5px !important;
+	}
+}
+@media only screen and (max-width:1199px){
+  .navbar-section .navbar ul li a{
+      padding: 8px 11px !important;
+      font-size: 18px !important;
+	}
+}
+@media only screen and (max-width:991px){
+	.navbar-section .navbar ul li a{
+		font-size: 20px !important;
+	}
+}
