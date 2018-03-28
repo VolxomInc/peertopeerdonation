@@ -49,12 +49,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="">Ideology</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item ml-3">
-                        <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
-                    </li>
+                    @if(!Auth::user())
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="/sign-in">Login</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="/logout">Logout</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>

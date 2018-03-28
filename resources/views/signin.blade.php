@@ -7,6 +7,7 @@
   <title>Signin-Donation</title>
   <!-- APP CSS -->
   <link rel="stylesheet" href="/css/app.css" type="text/css">
+  <link rel="stylesheet" href="/css/jquery.toast.css" type="text/css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- AniCollection.css library -->
 </head>
@@ -49,12 +50,18 @@
           <li class="nav-item">
             <a class="nav-link" href="">Ideology</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-primary" href="/login">Login</a>
-          </li>
-          <li class="nav-item ml-3">
-            <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
-          </li>
+          @if(!Auth::user())
+            <li class="nav-item">
+              <a class="nav-link btn btn-primary" href="/sign-in">Login</a>
+            </li>
+            <li class="nav-item ml-3">
+              <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
+            </li>
+          @else
+            <li class="nav-item">
+              <a class="nav-link btn btn-danger" href="/logout">Logout</a>
+            </li>
+          @endif
         </ul>
       </div>
     </nav>
@@ -67,14 +74,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-6 offset-lg-4 offset-md-3 pt-5">
-          <form >
+          <form method="post" action="{{ route('auth.login') }}">
+            <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <div class="form-group">
               <input type="email" name="email" id="email" class="form-control px-4" placeholder="Email">
             </div>
             <div class="form-group">
               <input type="password" name="password" id="password" class="form-control px-4" placeholder="Password">
             </div>
-            <a href="userdashboard.html" class="btn btn-primary">Login</a>
+            <button type="submit" class="btn btn-primary">Login</button>
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-check ml-2 py-2">
@@ -104,7 +112,7 @@
         <ul class="my-2">
           <li><a href="/">home</a></li>
           <li><a href="/signup">register</a></li>
-          <li><a href="/login">login</a></li>
+          <li><a href="/sign-in">login</a></li>
           <li><a href="/legality">legality</a></li>
           <li><a href="/news">news</a></li>
           <li><a href="/how_it_work">how it works</a></li>
@@ -151,12 +159,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script src="/js/jquery.toast.js"></script>
 <script>
   WebFont.load({
     google: {
       families: ['Raleway:400,700']
     }
   });
+
+  @foreach ($errors->all() as $error)
+    $.toast('{{ $error }}');
+  @endforeach
 </script>
 <!-- <script>
 

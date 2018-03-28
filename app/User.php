@@ -3,6 +3,13 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Access\User\Traits\UserAccess;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Access\User\Traits\Scope\UserScope;
+use App\Models\Access\User\Traits\UserSendPasswordReset;
+use App\Models\Access\User\Traits\Attribute\UserAttribute;
+use App\Models\Access\User\Traits\Relationship\UserRelationship;
 
 class User extends Authenticatable
 {
@@ -11,6 +18,13 @@ class User extends Authenticatable
      *
      * @var array
      */
+    use UserScope,
+        UserAccess,
+        Notifiable,
+        UserAttribute,
+        UserRelationship,
+        UserSendPasswordReset;
+
     protected $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.
@@ -27,4 +41,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('access.users_table');
+    }
 }

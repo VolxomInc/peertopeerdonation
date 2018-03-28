@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Libraries\Utilities;
+use App\Models\UserVerificationCode;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Auth;
 
 /**
  * Class PagesController
@@ -29,6 +31,8 @@ class UserController extends Controller
         $data['referrer_email'] = $request->referrer_email;
         $data['manager_email'] = $request->manager_email;
         $data['password'] = bcrypt($data['password']);
+        $data['role_id'] = 3;
+        $data['status'] = 0;
 
         $user = new User($data);
         $user->save();
@@ -37,22 +41,19 @@ class UserController extends Controller
             'password' => $request->password
         );
 
-        if (\Auth::attempt($credentials)) {
-            return redirect("/");
-        } else {
-            redirect()->back()->with('message', 'Please try again');
-        }
-    }
-
-    public function loginUser()
-    {
-        $credentials = array(
-            'email' => $request->email,
-            'password' => $request->password
+        $code = rand(1000,9999);
+        $user_code = array(
+            "code" => $code,
+            "attempts" => 0,
+            "user_id" => $user->user_id
         );
 
+        $verification_code = new UserVerificationCode($user_code);
+        $verification_code->save();
+
         if (\Auth::attempt($credentials)) {
-            return redirect("/");
+            Utilities::sendEmail('EmailFormats.WelcomeEmail',['user' => 'Peer to Peer Donation', 'display_name' => Auth::User()->user_name,'verification_code'=>$code], Auth::user()->email, 'Dear ' . Auth::User()->user_name,'Your New Peer to Peer Donation Account');
+            return redirect("/verification_code");
         } else {
             redirect()->back()->with('message', 'Please try again');
         }

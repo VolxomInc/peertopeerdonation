@@ -10,6 +10,16 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| This route group applies the "web" middleware group to every route
+| it contains. The "web" middleware group is defined in your HTTP
+| kernel and includes session state, CSRF protection, and more.
+|
+*/
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
@@ -44,23 +54,48 @@ Route::group(['middleware' => ['web']], function () {
         return view('forget_password');
     });
 
-    Route::get('/login', function () {
+    Route::get('/sign-in', function () {
         return view('signin');
-    });
+    })->name('sign-in');
 
     Route::post('storeUser', 'UserController@storeUser')->name('signup-user');
 });
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
+
+    /**
+     * These routes require the user to be logged in
+     */
+    Route::group(['middleware' => ['web','auth']], function () {
+        Route::get('logout', 'LoginController@logoutAs')->name('logout');
+        Route::post('verifyCode', 'LoginController@verifyCode')->name('verify-user');
+        Route::get('/user-dashboard', function () {
+            return view('userdashboard');
+        });
+
+        Route::get('/verification_code', function () {
+            return view('verification_code');
+        });
+        Route::post('provideHelp', 'LoginController@verifyCode')->name('provide.help');
+    });
+
+    Route::group(['middleware' => ['web','guest']], function () {
+        // Authentication Routes
+        Route::post('login', 'LoginController@login')->name('login');
+
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.form');
+    });
+
+    Route::group(['middleware' => 'web'], function () {
+        Route::post('reset-password', 'ResetPasswordController@reset')->name('password.reset');
+    });
+
+    Route::group(['middleware' => ['web','auth','verifiedUser']], function () {
+        Route::get('/userdashboard', 'LoginController@openDashboard')->name('userdashboard');
+    });
+});
+
+Route::group(['middleware' => ['web','auth']], function () {
+    Route::post('provideHelp', 'DashboardController@provideUserHelp')->name('provide.help');
 });

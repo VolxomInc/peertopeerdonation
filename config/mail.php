@@ -14,7 +14,7 @@ return [
     | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "ses", "log"
     |
     */
-
+    'pretend' => false,
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'zoha.sheikh.test@gmail.com', 'name' => 'Peer to Peer Donation'],
 
     /*
     |--------------------------------------------------------------------------
@@ -108,4 +108,11 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
 ];

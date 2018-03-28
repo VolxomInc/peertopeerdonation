@@ -55,9 +55,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'peer_peer_donation'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', 'abc'),
+            'database'  => env('DB_DATABASE', 'volxomco_donations'),
+            'username'  => env('DB_USERNAME', 'volxomco_peer'),
+            'password'  => env('DB_PASSWORD', 'Donation@123'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

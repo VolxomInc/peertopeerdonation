@@ -25,8 +25,8 @@ class signUpRequest extends Request
     public function rules()
     {
         return [
-            'user_name' => array('required', 'Regex:/^[A-Za-z0-9\-\_\.]+$/'),
-            'email' => 'required|email',
+            'user_name' => array('required', 'Regex:/^[A-Za-z0-9\-\_\.]+$/','unique:users'),
+            'email' => 'required|email|unique:users',
             'password'=>'Required||Min:6|confirmed',
             'password_confirmation' => 'required',
             'phone_number' => 'required',

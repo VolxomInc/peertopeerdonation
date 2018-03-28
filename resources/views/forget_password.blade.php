@@ -7,6 +7,7 @@
     <title>Forget Email-Donation</title>
     <!-- APP CSS -->
     <link rel="stylesheet" href="/css/app.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery.toast.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- AniCollection.css library -->
 </head>
@@ -49,12 +50,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="">Ideology</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item ml-3">
-                        <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
-                    </li>
+                    @if(!Auth::user())
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="/sign-in">Login</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link btn btn-danger" href="/signup">Join Now</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="/logout">Logout</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>
@@ -67,7 +74,8 @@
         <div class="container py-4">
             <div class="row">
                 <div class="col-lg-6 col-md-8 offset-lg-3 offset-md-2 pt-5">
-                    <form>
+                    <form method="post" action="{{ route('auth.password.email') }}">
+                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
                         <div class="form-group">
                             <p class="para text-center">Please input your Email e.g: help@donation.com to get password</p>
                             <input type="email" class="form-control px-4" required name="email" id="email" placeholder="Email">
@@ -90,7 +98,7 @@
                 <ul class="my-2">
                     <li><a href="/">home</a></li>
                     <li><a href="/signup">register</a></li>
-                    <li><a href="/login">login</a></li>
+                    <li><a href="/sign-in">login</a></li>
                     <li><a href="/legality">legality</a></li>
                     <li><a href="/news">news</a></li>
                     <li><a href="/how_it_work">how it works</a></li>
@@ -137,12 +145,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script src="/js/jquery.toast.js"></script>
 <script>
     WebFont.load({
         google: {
             families: ['Raleway:400,700']
         }
     });
+
+    @if(!empty(session('status')))
+        $.toast('{{ session('status') }}');
+    @endif
+
+    @foreach ($errors->all() as $error)
+      $.toast('{{ $error }}');
+    @endforeach
 </script>
 </body>
 </html>

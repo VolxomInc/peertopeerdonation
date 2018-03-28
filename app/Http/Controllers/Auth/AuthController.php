@@ -7,7 +7,6 @@ use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
@@ -21,8 +20,6 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
@@ -69,35 +66,5 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-
-    //sign up function which is dealing to register
-    public function storeUser(SignUpRequest $request)
-    {
-        $data = $request->all();
-        $data['user_name'] = $request->user_name;
-        $data['email'] = $request->email;
-        $data['phone_number'] = $request->phone_number;
-        $data['country'] = $request->country;
-        $data['tigo_cash'] = $request->user_name;
-        $data['mobile_money_name'] = $request->mobile_money_name;
-        $data['mobile_money_number'] = $request->mobile_money_number;
-        $data['bitcoin_address'] = $request->bitcoin_address;
-        $data['referrer_email'] = $request->referrer_email;
-        $data['manager_email'] = $request->manager_email;
-        $data['password'] = bcrypt($data['password']);
-
-        $user = new User($data);
-        $user->save();
-        $credentials = array(
-            'email' => $data['email'],
-            'password' => $request->password,
-            'status' => '1'
-        );
-        if (\Auth::attempt($credentials)) {
-            return redirect("/index");
-        } else {
-            redirect()->back()->with('message', 'Please try again');
-        }
     }
 }
