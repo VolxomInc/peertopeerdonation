@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Libraries\Utilities;
+use App\Models\Commitment;
 use App\Models\ProvideHelp;
 use App\User;
 use Validator;
@@ -35,6 +36,17 @@ class DashboardController extends Controller
 
         $phelp = new ProvideHelp($data);
         $phelp->save();
+
+        return redirect("/user-dashboard");
+    }
+
+    public function commitmentsPool() {
+        $request = Input::all();
+        $data['user_id'] = Auth::id();
+        $data['amount'] = $request['amount-input'];
+
+        $commitment = new Commitment($data);
+        $commitment->save();
 
         return redirect("/user-dashboard");
     }

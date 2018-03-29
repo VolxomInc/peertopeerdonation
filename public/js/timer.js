@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
      $('.times').each(function(index, el) {
-          var $this = $(this);
-          var $timer = $this.siblings('.timer');
+          let $this = $(this);
+          let $timer = $this.siblings('.timer');
 
           var time = $this.text();
                 var interval = setInterval(function() {

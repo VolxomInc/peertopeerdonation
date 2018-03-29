@@ -33,56 +33,56 @@
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="/reward.html" class="sidebar-ancher  py-4 px-2" >
+                    <a href="/rewards" class="sidebar-ancher  py-4 px-2" >
                         <img src="/images/Rewards.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">Rewards</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
                     <a href="" class="sidebar-ancher  py-4 px-2" >
-                        <img src="images/Bonus.png" class="img-fluid" alt="user-dashboard">
+                        <img src="/images/Bonus.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">Bonus</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="comittment.html" class="sidebar-ancher  py-4 px-2" >
-                        <img src="images/Comittment.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/commitments" class="sidebar-ancher  py-4 px-2" >
+                        <img src="/images/Comittment.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">Comittment</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="phhistory.html" class="sidebar-ancher  py-4 px-2" >
-                        <img src="images/PHHistory.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/provide_help_history" class="sidebar-ancher  py-4 px-2" >
+                        <img src="/images/PHHistory.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">PH History</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="ghhistory.html" class="sidebar-ancher  py-4 px-2" >
-                        <img src="images/GHHistory.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/get_help_history" class="sidebar-ancher  py-4 px-2" >
+                        <img src="/images/GHHistory.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">GH History</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="myteam.html" class="sidebar-ancher  py-4 px-2">
-                        <img src="images/MyTeam.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/my_team" class="sidebar-ancher  py-4 px-2">
+                        <img src="/images/MyTeam.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">My Team</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="profilesetting.html" class="sidebar-ancher  py-4 px-2" >
-                        <img src="images/ProfileSettings.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/profile_settings" class="sidebar-ancher  py-4 px-2" >
+                        <img src="/images/ProfileSettings.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">Profile Settings</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="" class="sidebar-ancher  py-4 px-2">
-                        <img src="images/News.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/dashboard_news" class="sidebar-ancher  py-4 px-2">
+                        <img src="/images/News.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">News</p>
                     </a>
                 </li>
                 <li class="sidebar-tab mb-lg-0 mb-md-0 mb-2">
-                    <a href="" class="sidebar-ancher  py-4 px-2">
-                        <img src="images/Support.png" class="img-fluid" alt="user-dashboard">
+                    <a href="/support_donation" class="sidebar-ancher  py-4 px-2">
+                        <img src="/images/Support.png" class="img-fluid" alt="user-dashboard">
                         <p class="sidebar-para mb-0 pt-1">Support</p>
                     </a>
                 </li>
@@ -193,7 +193,7 @@
                                                     <h2 class="text-center work-title">PROVIDE HELP</h2>
                                                     <p class="sidebar-para pb-4"><span><i class="fa fa-check"></i></span> GHC (gh¢)</p>
                                                     <p class="sidebar-para">GHC (gh¢)</p>
-                                                    <form method="post" action="{{ route('provide.help') }}">
+                                                    <form method="post" action="{{ route('commitment.pool') }}">
                                                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
                                                         <div class="form-group">
                                                             <input class="form-control" type="number" value="0.00" id="amount-input" name="amount-input">

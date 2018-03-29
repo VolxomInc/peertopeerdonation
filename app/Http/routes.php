@@ -98,4 +98,35 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 
 Route::group(['middleware' => ['web','auth']], function () {
     Route::post('provideHelp', 'DashboardController@provideUserHelp')->name('provide.help');
+    Route::post('commitmentPool', 'DashboardController@commitmentsPool')->name('commitment.pool');
+    Route::get('/forget_password', function () {
+        return view('forget_password');
+    });
+    Route::get('/commitments', function () {
+        return view('commitment');
+    });
+    Route::get('/dashboard_news', function () {
+        return view('dashboard_new');
+    });
+    Route::get('/get_help_history', function () {
+        return view('get_help_history');
+    });
+    Route::get('/my_team', function () {
+        return view('my_team');
+    });
+    Route::get('/profile_settings', function () {
+        return view('profile_settings');
+    });
+    Route::get('/provide_help_history', function () {
+        return view('provide_help_history');
+    });
+    Route::get('/rewards', function () {
+        return view('rewards');
+    });
+    Route::get('/super_admin_dashboard', function () {
+        return view('super_admin_dashboard');
+    });
+    Route::get('/support_donation', function () {
+        return view('support_donation');
+    });
 });

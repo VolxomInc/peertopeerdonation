@@ -1,0 +1,94 @@
+//Mixin to convert rem to pixel or pixel to rem
+//HTML font size needs to be set at 62.5%;
+@function parseInt($n) { /* 2 */
+  @return $n / ($n * 0 + 1);
+}
+
+@mixin rem($property, $values) {
+  $px : (); /* 3 */
+  $rem: (); /* 3 */
+
+  @each $value in $values { /* 4 */
+
+    @if $value == 0 or $value == auto { /* 5 */
+      $px : append($px , $value);
+      $rem: append($rem, $value);
+    }
+
+    @else {
+      $unit: unit($value);    /* 6 */
+      $val: parseInt($value); /* 6 */
+
+      @if $unit == "px" {  /* 7 */
+        $px : append($px,  $value);
+        $rem: append($rem, ($val / 10 + rem));
+      }
+
+      @if $unit == "rem" { /* 7 */
+        $px : append($px,  ($val * 10 + px));
+        $rem: append($rem, $value);
+      }
+    }
+  }
+
+  @if $px == $rem {     /* 8 */
+    #{$property}: $px;  /* 9 */
+  } @else {
+    #{$property}: $px;  /* 9 */
+    #{$property}: $rem; /* 9 */
+  }
+}
+//End Mixin convert rem to pixel or pixel to rem
+@mixin animation-delay($z){
+      -webkit-animation-delay: $z; 
+        -ms-animation-delay: $z;
+        animation-delay: $z;
+}
+
+@mixin transform($x){
+  -ms-transform: scale($x);
+  -webkit-transform: scale($x);
+  transform: scale($x);
+}
+
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($time) {
+  -webkit-transition: all ease-in-out $time ;
+  -moz-transition: all ease-in-out $time ;
+  -ms-transition: all ease-in-out $time;
+  -o-transition: all ease-in-out $time ;
+  transition: all ease-in-out $time ;
+}
+
+@mixin column-count($count) {
+  -webkit-column-count: $count;
+  -moz-column-count: $count;
+  column-count: $count;
+}
+
+@mixin column-gap($gap) {
+  -webkit-column-gap: $gap; /* Chrome, Safari, Opera */
+  -moz-column-gap: $gap; /* Firefox */
+  column-gap:$gap;
+}
+@mixin rotate($value) {
+  -ms-transform: rotate($value); /* IE 9 */
+  -webkit-transform: rotate($value); /* Chrome, Safari, Opera */
+  -moz-transform: rotate($value);
+  -o-transform: rotate($value);
+  transform: rotate($value);
+}
+
+@mixin align-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
