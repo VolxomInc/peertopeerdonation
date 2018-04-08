@@ -25,5 +25,6 @@ class Commitment extends Model
     protected $fillable = [
         'user_id',
         'amount',
+        'finish_time'
     ];
 }

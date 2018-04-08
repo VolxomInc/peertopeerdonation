@@ -16,7 +16,7 @@
 <header class="dashboard-navbar container-fluid px-4 py-3">
     <ul class="mb-0">
         <li><img src="/images/logo.png" class="img-fluid logo-img" alt="logo"></li>
-        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">Nana KBDA<span><a href="/sign-in"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
+        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">{{Auth::user()->user_name}}<span><a href="/logout"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
         <li class="float-right"><img src="/images/user-image.jpg" class="img-fluid user-img" alt="user-image"></li>
     </ul>
 </header>
@@ -266,10 +266,41 @@
             <div class="table-responsive">
                 <table class="table table-striped dashboard-table table-sm">
                     <tbody>
+                    @foreach($commitments as $commitment)
+                        <tr>
+                            <td>{{$commitment->commitment_id}}</td>
+                            <td>{{$commitment->amount}}gh¢</td>
+                            <td>-</td>
+                            <td class="text-center py-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="20px" height="20px" class=""><g><g>
+                                            <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M31,26.021V15.879c0-0.553-0.448-1-1-1s-1,0.447-1,1v10.142c-1.399,0.364-2.494,1.459-2.858,2.858H19c-0.552,0-1,0.447-1,1   s0.448,1,1,1h7.142c0.447,1.72,2,3,3.858,3c2.206,0,4-1.794,4-4C34,28.02,32.72,26.468,31,26.021z M30,31.879c-1.103,0-2-0.897-2-2   s0.897-2,2-2s2,0.897,2,2S31.103,31.879,30,31.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M30,9.879c0.552,0,1-0.447,1-1v-1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1C29,9.432,29.448,9.879,30,9.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M30,49.879c-0.552,0-1,0.447-1,1v1c0,0.553,0.448,1,1,1s1-0.447,1-1v-1C31,50.326,30.552,49.879,30,49.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M52,28.879h-1c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S52.552,28.879,52,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M9,28.879H8c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S9.552,28.879,9,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M44.849,13.615l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S45.24,13.225,44.849,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M14.444,44.021l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S14.834,43.631,14.444,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M45.556,44.021c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L45.556,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                            <path d="M15.151,13.615c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L15.151,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
+                                        </g></g> </svg>
+                                <?php
+                                    $startTime = new DateTime(Carbon\Carbon::now());
+                                    $finishTime = new DateTime($commitment->finish_time);
+                                    $totalDuration = $finishTime->diff($startTime)->format('%H:%I:%S');
+                                ?>
+                                <p class="times sr-only">{{$totalDuration}}</p>
+                                <p class="table-text mb-0 timer"><span>0</span> : <span>0</span> : <span>0
+                          </span></p></td>
+                            <td class="text-center py-1">-</td>
+                            <td class="text-center py-1">-</td>
+                        </tr>
+                    @endforeach
+                    @foreach($phHelps as $ph)
                     <tr>
-                        <td>PG0012</td>
-                        <td>2000gh¢</td>
-                        <td>Daniel 0242144646</td>
+                        <td>{{$ph->provider_new_id}}</td>
+                        <td>{{$ph->amount}}gh¢</td>
+                        <td>{{$users[$ph->assigned_member_id]}}</td>
                         <td class="text-center py-1">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="20px" height="20px" class=""><g><g>
                                         <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
@@ -283,13 +314,18 @@
                                         <path d="M45.556,44.021c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L45.556,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
                                         <path d="M15.151,13.615c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L15.151,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
                                     </g></g> </svg>
-                            <p class="times sr-only">23:59:59</p>
+                            <?php
+                                $startTime = new DateTime(Carbon\Carbon::now());
+                                $finishTime = new DateTime($ph->finish_time);
+                                $totalDuration = $finishTime->diff($startTime)->format('%H:%I:%S');
+                            ?>
+                            <p class="times sr-only">{{$totalDuration}}</p>
                             <p class="table-text mb-0 timer"><span>0</span> : <span>0</span> : <span>0
                           </span></p></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message1"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
+                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message-{{$ph->provider_new_id}}"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
 
                         <!-- Start Message model -->
-                        <div class="modal fade btn-position" id="Message1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal fade btn-position" id="Message-{{$ph->provider_new_id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
@@ -309,15 +345,15 @@
                                         <p class="small-title mb-0">Kofikonadu</p>
                                         <p class="mb-0 para">Payment made for GHS 24.00 to Damiel Boateng (233242144646) Current Balance: GHS 49.60 . Available Balance: GHS 49.60. Reference: GDCkofikonadu. Transaction ID: 3092208781. Fee charged: GHS0.50.</p>
                                         <a href="" class="mb-4 proofdonation">Proof of Donation</a>
-                                        <form>
+                                        <form method="post" action="{{ route('payment.proof') }}">
+                                            <input name="_token" type="hidden" value="{{ csrf_token() }}">
                                             <div class="row">
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="messagefieldarea px-2" name="Message" id="Messagefield" placeholder="Type your message">
+                                                    <input type="text" class="messagefieldarea px-2" name="messagefield" id="messagefield" placeholder="Type your message" required>
                                                     <div class="form-group">
-                                                        <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
+                                                        <input type="file" name="choosefile" class="choosefilearea"  id="choosefile" >
                                                     </div>
-                                                    <button class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
-
+                                                    <button type="submit" class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -329,7 +365,7 @@
                         <!-- End Message model -->
 
                         <td class="text-center py-1">
-                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail1" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
+                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail-{{$ph->provider_new_id}}" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
                                             <path d="M14.768,0C6.611,0,0,6.609,0,14.768c0,8.155,6.611,14.767,14.768,14.767c8.154,0,14.766-6.612,14.766-14.767   C29.534,6.609,22.923,0,14.768,0z M14.768,27.126c-6.83,0-12.361-5.532-12.361-12.359c0-6.828,5.531-12.362,12.361-12.362   c6.824,0,12.359,5.535,12.359,12.362C27.128,21.594,21.592,27.126,14.768,27.126z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
                                             <polygon points="16.83,11.143 12.679,11.143 12.679,11.15 11.134,11.15 11.134,13.563 12.679,13.563 12.679,22.181 11.039,22.181    11.039,24.487 12.679,24.487 12.679,24.503 16.83,24.503 16.83,24.487 18.188,24.487 18.188,22.181 16.83,22.181  " data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
                                             <path d="M14.726,9.504c1.395,0,2.24-0.928,2.24-2.077c-0.027-1.172-0.846-2.072-2.184-2.072c-1.336,0-2.211,0.899-2.211,2.072   C12.57,8.576,13.417,9.504,14.726,9.504z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
@@ -339,7 +375,7 @@
                                 <p class="table-text mb-0">Details</p></a></td>
 
                         <!-- Start detail model -->
-                        <div class="modal fade btn-position" id="detail1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal fade btn-position" id="detail-{{$ph->provider_new_id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
@@ -347,481 +383,33 @@
                                     </button>
                                     <div class="modal-body modalpopuparea">
                                         <h2 class="text-center title-popup">DETAILS</h2>
-                                        <p class="small-title ">Dear participant please Donate 20 GHC</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <ul class="infoname">
-                                                    <li><span class="small-title">Bank Name:  </span></li>
-                                                    <li><span class="small-title">Account Name: </span></li>
-                                                    <li><span class="small-title">Account Number:</span></li>
-                                                    <li><span class="small-title">Receiver:  </span></li>
-                                                    <li><span class="small-title">Guider: </span></li>
-                                                    <li><span class="small-title"> Donor:   </span></li>
-                                                    <li><span class="small-title">Guider:    </span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul class="deailarea">
-                                                    <li><span class=" para pb-2">TIGO</span></li>
-                                                    <li><span class=" para">Daniel Boateng</span></li>
-                                                    <li><span class=" para">0575332441</span></li>
-                                                    <li><span class=" para">Nana KDAB 0575332441</span></li>
-                                                    <li><span class=" para">Agyenim Boateng 0242144646</span></li>
-                                                    <li><span class=" para">Mensah 0241510064</span></li>
-                                                    <li><span class=" para">Elikem 0547151174</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Detail model -->
-
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>PG0013</td>
-                        <td>2000gh¢</td>
-                        <td>Daniel 0242144646</td>
-                        <td class="text-center py-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="20px" height="20px" class=""><g><g>
-                                        <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M31,26.021V15.879c0-0.553-0.448-1-1-1s-1,0.447-1,1v10.142c-1.399,0.364-2.494,1.459-2.858,2.858H19c-0.552,0-1,0.447-1,1   s0.448,1,1,1h7.142c0.447,1.72,2,3,3.858,3c2.206,0,4-1.794,4-4C34,28.02,32.72,26.468,31,26.021z M30,31.879c-1.103,0-2-0.897-2-2   s0.897-2,2-2s2,0.897,2,2S31.103,31.879,30,31.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M30,9.879c0.552,0,1-0.447,1-1v-1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1C29,9.432,29.448,9.879,30,9.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M30,49.879c-0.552,0-1,0.447-1,1v1c0,0.553,0.448,1,1,1s1-0.447,1-1v-1C31,50.326,30.552,49.879,30,49.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M52,28.879h-1c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S52.552,28.879,52,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M9,28.879H8c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S9.552,28.879,9,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M44.849,13.615l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S45.24,13.225,44.849,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M14.444,44.021l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S14.834,43.631,14.444,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M45.556,44.021c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L45.556,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M15.151,13.615c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L15.151,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                    </g></g> </svg>
-                            <p class="times sr-only">23:59:59</p>
-                            <p class="table-text mb-0 timer"><span>0</span> : <span>0</span> : <span>0
-                          </span></p></td>
-
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message2"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
-
-                        <!-- Start Message model -->
-                        <div class="modal fade btn-position" id="Message2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">MESSAGES</h2>
-
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Nana KDAB1</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Paid</p>
-                                        <a href="" class="mb-5 proofdonation">Proof of Donation</a>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Payment made for GHS 24.00 to Damiel Boateng (233242144646) Current Balance: GHS 49.60 . Available Balance: GHS 49.60. Reference: GDCkofikonadu. Transaction ID: 3092208781. Fee charged: GHS0.50.</p>
-                                        <a href="" class="mb-4 proofdonation">Proof of Donation</a>
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="messagefieldarea px-2" name="Message" id="Messagefield" placeholder="Type your message">
-                                                    <div class="form-group">
-                                                        <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
+                                        @foreach($transactionDetails as $transaction)
+                                            @if($transaction->user_id == $ph->assigned_member_id)
+                                                <p class="small-title ">Dear participant please Donate {{$ph->amount}} GHC</p>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <ul class="infoname">
+                                                            <li><span class="small-title">Bank Name:  </span></li>
+                                                            <li><span class="small-title">Account Name: </span></li>
+                                                            <li><span class="small-title">Account Number:</span></li>
+                                                        </ul>
                                                     </div>
-                                                    <button class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Message model -->
-
-                        <td class="text-center py-1">
-                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail2" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
-                                            <path d="M14.768,0C6.611,0,0,6.609,0,14.768c0,8.155,6.611,14.767,14.768,14.767c8.154,0,14.766-6.612,14.766-14.767   C29.534,6.609,22.923,0,14.768,0z M14.768,27.126c-6.83,0-12.361-5.532-12.361-12.359c0-6.828,5.531-12.362,12.361-12.362   c6.824,0,12.359,5.535,12.359,12.362C27.128,21.594,21.592,27.126,14.768,27.126z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <polygon points="16.83,11.143 12.679,11.143 12.679,11.15 11.134,11.15 11.134,13.563 12.679,13.563 12.679,22.181 11.039,22.181    11.039,24.487 12.679,24.487 12.679,24.503 16.83,24.503 16.83,24.487 18.188,24.487 18.188,22.181 16.83,22.181  " data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <path d="M14.726,9.504c1.395,0,2.24-0.928,2.24-2.077c-0.027-1.172-0.846-2.072-2.184-2.072c-1.336,0-2.211,0.899-2.211,2.072   C12.57,8.576,13.417,9.504,14.726,9.504z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                        </g>
-                                    </g>
-                    </svg>
-                                <p class="table-text mb-0">Details</p></a></td>
-
-                        <!-- Start detail model -->
-                        <div class="modal fade btn-position" id="detail2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">DETAILS</h2>
-                                        <p class="small-title ">Dear participant please Donate 20 GHC</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <ul class="infoname">
-                                                    <li><span class="small-title">Bank Name:  </span></li>
-                                                    <li><span class="small-title">Account Name: </span></li>
-                                                    <li><span class="small-title">Account Number:</span></li>
-                                                    <li><span class="small-title">Receiver:  </span></li>
-                                                    <li><span class="small-title">Guider: </span></li>
-                                                    <li><span class="small-title"> Donor:   </span></li>
-                                                    <li><span class="small-title">Guider:    </span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul class="deailarea">
-                                                    <li><span class=" para pb-2">TIGO</span></li>
-                                                    <li><span class=" para">Daniel Boateng</span></li>
-                                                    <li><span class=" para">0575332441</span></li>
-                                                    <li><span class=" para">Nana KDAB 0575332441</span></li>
-                                                    <li><span class=" para">Agyenim Boateng 0242144646</span></li>
-                                                    <li><span class=" para">Mensah 0241510064</span></li>
-                                                    <li><span class=" para">Elikem 0547151174</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Detail model -->
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>PG0014</td>
-                        <td>2000gh¢</td>
-                        <td>Daniel 0242144646</td>
-                        <td class="text-center py-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="20px" height="20px" class=""><g><g>
-                                        <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M31,26.021V15.879c0-0.553-0.448-1-1-1s-1,0.447-1,1v10.142c-1.399,0.364-2.494,1.459-2.858,2.858H19c-0.552,0-1,0.447-1,1   s0.448,1,1,1h7.142c0.447,1.72,2,3,3.858,3c2.206,0,4-1.794,4-4C34,28.02,32.72,26.468,31,26.021z M30,31.879c-1.103,0-2-0.897-2-2   s0.897-2,2-2s2,0.897,2,2S31.103,31.879,30,31.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M30,9.879c0.552,0,1-0.447,1-1v-1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1C29,9.432,29.448,9.879,30,9.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M30,49.879c-0.552,0-1,0.447-1,1v1c0,0.553,0.448,1,1,1s1-0.447,1-1v-1C31,50.326,30.552,49.879,30,49.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M52,28.879h-1c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S52.552,28.879,52,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M9,28.879H8c-0.552,0-1,0.447-1,1s0.448,1,1,1h1c0.552,0,1-0.447,1-1S9.552,28.879,9,28.879z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M44.849,13.615l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S45.24,13.225,44.849,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M14.444,44.021l-0.707,0.707c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293l0.707-0.707c0.391-0.391,0.391-1.023,0-1.414S14.834,43.631,14.444,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M45.556,44.021c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L45.556,44.021z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                        <path d="M15.151,13.615c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414l0.707,0.707c0.195,0.195,0.451,0.293,0.707,0.293   s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L15.151,13.615z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#747474"/>
-                                    </g></g> </svg>
-                            <p class="times sr-only">23:59:59</p>
-                            <p class="table-text mb-0 timer"><span>0</span> : <span>0</span> : <span>0
-                          </span></p></td>
-
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message3"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
-
-
-                        <!-- Start Message model -->
-                        <div class="modal fade btn-position" id="Message3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">MESSAGES</h2>
-
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Nana KDAB3</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Paid</p>
-                                        <a href="" class="mb-5 proofdonation">Proof of Donation</a>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Payment made for GHS 24.00 to Damiel Boateng (233242144646) Current Balance: GHS 49.60 . Available Balance: GHS 49.60. Reference: GDCkofikonadu. Transaction ID: 3092208781. Fee charged: GHS0.50.</p>
-                                        <a href="" class="mb-4 proofdonation">Proof of Donation</a>
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="messagefieldarea px-2" name="Message" id="Messagefield" placeholder="Type your message">
-                                                    <div class="form-group">
-                                                        <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <ul class="deailarea">
+                                                            <li><span class=" para pb-2">{{$transaction->bank_name}}</span></li>
+                                                            <li><span class=" para">{{$transaction->account_name}}</span></li>
+                                                            <li><span class=" para">{{$transaction->account_number}}</span></li>
+                                                        </ul>
                                                     </div>
-                                                    <button class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
-
                                                 </div>
-                                            </div>
-                                        </form>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- End Message model -->
-
-                        <td class="text-center py-1">
-                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail3" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
-                                            <path d="M14.768,0C6.611,0,0,6.609,0,14.768c0,8.155,6.611,14.767,14.768,14.767c8.154,0,14.766-6.612,14.766-14.767   C29.534,6.609,22.923,0,14.768,0z M14.768,27.126c-6.83,0-12.361-5.532-12.361-12.359c0-6.828,5.531-12.362,12.361-12.362   c6.824,0,12.359,5.535,12.359,12.362C27.128,21.594,21.592,27.126,14.768,27.126z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <polygon points="16.83,11.143 12.679,11.143 12.679,11.15 11.134,11.15 11.134,13.563 12.679,13.563 12.679,22.181 11.039,22.181    11.039,24.487 12.679,24.487 12.679,24.503 16.83,24.503 16.83,24.487 18.188,24.487 18.188,22.181 16.83,22.181  " data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <path d="M14.726,9.504c1.395,0,2.24-0.928,2.24-2.077c-0.027-1.172-0.846-2.072-2.184-2.072c-1.336,0-2.211,0.899-2.211,2.072   C12.57,8.576,13.417,9.504,14.726,9.504z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                        </g>
-                                    </g>
-                    </svg>
-                                <p class="table-text mb-0">Details</p></a></td>
-
-                        <!-- Start detail model -->
-                        <div class="modal fade btn-position" id="detail3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">DETAILS</h2>
-                                        <p class="small-title ">Dear participant please Donate 20 GHC</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <ul class="infoname">
-                                                    <li><span class="small-title">Bank Name:  </span></li>
-                                                    <li><span class="small-title">Account Name: </span></li>
-                                                    <li><span class="small-title">Account Number:</span></li>
-                                                    <li><span class="small-title">Receiver:  </span></li>
-                                                    <li><span class="small-title">Guider: </span></li>
-                                                    <li><span class="small-title"> Donor:   </span></li>
-                                                    <li><span class="small-title">Guider:    </span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul class="deailarea">
-                                                    <li><span class=" para pb-2">TIGO</span></li>
-                                                    <li><span class=" para">Daniel Boateng</span></li>
-                                                    <li><span class=" para">0575332441</span></li>
-                                                    <li><span class=" para">Nana KDAB 0575332441</span></li>
-                                                    <li><span class=" para">Agyenim Boateng 0242144646</span></li>
-                                                    <li><span class=" para">Mensah 0241510064</span></li>
-                                                    <li><span class=" para">Elikem 0547151174</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Detail model -->
-
-
                     </tr>
-                    </tr>
-                    <tr>
-                        <td>PG0015</td>
-                        <td>2000gh¢</td>
-                        <td>Daniel 0242144646</td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message4"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
-
-                        <!-- Start Message model -->
-                        <div class="modal fade btn-position" id="Message4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">MESSAGES</h2>
-
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Nana KDAB4</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Paid</p>
-                                        <a href="" class="mb-5 proofdonation">Proof of Donation</a>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Payment made for GHS 24.00 to Damiel Boateng (233242144646) Current Balance: GHS 49.60 . Available Balance: GHS 49.60. Reference: GDCkofikonadu. Transaction ID: 3092208781. Fee charged: GHS0.50.</p>
-                                        <a href="" class="mb-4 proofdonation">Proof of Donation</a>
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="messagefieldarea px-2" name="Message" id="Messagefield" placeholder="Type your message">
-                                                    <div class="form-group">
-                                                        <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                                    </div>
-                                                    <button class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Message model -->
-
-                        <td class="text-center py-1">
-                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail4" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
-                                            <path d="M14.768,0C6.611,0,0,6.609,0,14.768c0,8.155,6.611,14.767,14.768,14.767c8.154,0,14.766-6.612,14.766-14.767   C29.534,6.609,22.923,0,14.768,0z M14.768,27.126c-6.83,0-12.361-5.532-12.361-12.359c0-6.828,5.531-12.362,12.361-12.362   c6.824,0,12.359,5.535,12.359,12.362C27.128,21.594,21.592,27.126,14.768,27.126z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <polygon points="16.83,11.143 12.679,11.143 12.679,11.15 11.134,11.15 11.134,13.563 12.679,13.563 12.679,22.181 11.039,22.181    11.039,24.487 12.679,24.487 12.679,24.503 16.83,24.503 16.83,24.487 18.188,24.487 18.188,22.181 16.83,22.181  " data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <path d="M14.726,9.504c1.395,0,2.24-0.928,2.24-2.077c-0.027-1.172-0.846-2.072-2.184-2.072c-1.336,0-2.211,0.899-2.211,2.072   C12.57,8.576,13.417,9.504,14.726,9.504z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                        </g>
-                                    </g>
-                    </svg>
-                                <p class="table-text mb-0">Details</p></a></td>
-
-
-                        <!-- Start detail model -->
-                        <div class="modal fade btn-position" id="detail4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">DETAILS</h2>
-                                        <p class="small-title ">Dear participant please Donate 20 GHC</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <ul class="infoname">
-                                                    <li><span class="small-title">Bank Name:  </span></li>
-                                                    <li><span class="small-title">Account Name: </span></li>
-                                                    <li><span class="small-title">Account Number:</span></li>
-                                                    <li><span class="small-title">Receiver:  </span></li>
-                                                    <li><span class="small-title">Guider: </span></li>
-                                                    <li><span class="small-title"> Donor:   </span></li>
-                                                    <li><span class="small-title">Guider:    </span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul class="deailarea">
-                                                    <li><span class=" para pb-2">TIGO</span></li>
-                                                    <li><span class=" para">Daniel Boateng</span></li>
-                                                    <li><span class=" para">0575332441</span></li>
-                                                    <li><span class=" para">Nana KDAB 0575332441</span></li>
-                                                    <li><span class=" para">Agyenim Boateng 0242144646</span></li>
-                                                    <li><span class=" para">Mensah 0241510064</span></li>
-                                                    <li><span class=" para">Elikem 0547151174</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Detail model -->
-
-
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>PG0016</td>
-                        <td>2000gh¢</td>
-                        <td>Daniel 0242144646</td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#Message5"><i class="fa fa-envelope"></i><p class="table-text mb-0">0</p></a></td>
-
-                        <!-- Start Message model -->
-                        <div class="modal fade btn-position" id="Message5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">MESSAGES</h2>
-
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Nana KDAB5</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Paid</p>
-                                        <a href="" class="mb-5 proofdonation">Proof of Donation</a>
-                                        <p class=" mb-0 para popupgray-color">2018-03-10 14:31:19</p>
-                                        <p class="small-title mb-0">Kofikonadu</p>
-                                        <p class="mb-0 para">Payment made for GHS 24.00 to Damiel Boateng (233242144646) Current Balance: GHS 49.60 . Available Balance: GHS 49.60. Reference: GDCkofikonadu. Transaction ID: 3092208781. Fee charged: GHS0.50.</p>
-                                        <a href="" class="mb-4 proofdonation">Proof of Donation</a>
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="messagefieldarea px-2" name="Message" id="Messagefield" placeholder="Type your message">
-                                                    <div class="form-group">
-                                                        <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                                    </div>
-                                                    <button class="btn btn-primary">Send<span class="pl-2"><i class="fa fa-paper-plane"></i></span></button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Message model -->
-
-                        <td class="text-center py-1">
-                            <a href="" class="text-color-cls" data-toggle="modal" data-target="#detail5" ><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 29.535 29.535" style="enable-background:new 0 0 29.535 29.535;" xml:space="preserve" width="18px" height="18px" class=""><g><g>
-                                            <path d="M14.768,0C6.611,0,0,6.609,0,14.768c0,8.155,6.611,14.767,14.768,14.767c8.154,0,14.766-6.612,14.766-14.767   C29.534,6.609,22.923,0,14.768,0z M14.768,27.126c-6.83,0-12.361-5.532-12.361-12.359c0-6.828,5.531-12.362,12.361-12.362   c6.824,0,12.359,5.535,12.359,12.362C27.128,21.594,21.592,27.126,14.768,27.126z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <polygon points="16.83,11.143 12.679,11.143 12.679,11.15 11.134,11.15 11.134,13.563 12.679,13.563 12.679,22.181 11.039,22.181    11.039,24.487 12.679,24.487 12.679,24.503 16.83,24.503 16.83,24.487 18.188,24.487 18.188,22.181 16.83,22.181  " data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                            <path d="M14.726,9.504c1.395,0,2.24-0.928,2.24-2.077c-0.027-1.172-0.846-2.072-2.184-2.072c-1.336,0-2.211,0.899-2.211,2.072   C12.57,8.576,13.417,9.504,14.726,9.504z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#646464"/>
-                                        </g>
-                                    </g>
-                    </svg>
-                                <p class="table-text mb-0">Details</p></a></td>
-
-                        <!-- Start detail model -->
-                        <div class="modal fade btn-position" id="detail5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup">DETAILS</h2>
-                                        <p class="small-title ">Dear participant please Donate 20 GHC</p>
-                                        <p class="pb-4 para">You can pay it mtn 0242144646 Daniel Boateng.</p>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <ul class="infoname">
-                                                    <li><span class="small-title">Bank Name:  </span></li>
-                                                    <li><span class="small-title">Account Name: </span></li>
-                                                    <li><span class="small-title">Account Number:</span></li>
-                                                    <li><span class="small-title">Receiver:  </span></li>
-                                                    <li><span class="small-title">Guider: </span></li>
-                                                    <li><span class="small-title"> Donor:   </span></li>
-                                                    <li><span class="small-title">Guider:    </span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul class="deailarea">
-                                                    <li><span class=" para pb-2">TIGO</span></li>
-                                                    <li><span class=" para">Daniel Boateng</span></li>
-                                                    <li><span class=" para">0575332441</span></li>
-                                                    <li><span class=" para">Nana KDAB 0575332441</span></li>
-                                                    <li><span class=" para">Agyenim Boateng 0242144646</span></li>
-                                                    <li><span class=" para">Mensah 0241510064</span></li>
-                                                    <li><span class=" para">Elikem 0547151174</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End Detail model -->
-
-
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -1563,7 +1151,9 @@
         }
     });
 </script>
+<script src="/js/jquery.js"></script>
 <script src="/js/timer.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script>
     $(function(){
         $("#submit-help").attr("disabled", "disabled");

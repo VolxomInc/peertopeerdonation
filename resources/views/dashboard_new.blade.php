@@ -16,7 +16,7 @@
 <header class="dashboard-navbar container-fluid px-4 py-3">
     <ul class="mb-0">
         <li><img src="/images/logo.png" class="img-fluid logo-img" alt="logo"></li>
-        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">Nana KBDA<span><a href="/sign-in"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
+        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">{{Auth::user()->user_name}}<span><a href="/logout"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
         <li class="float-right"><img src="/images/user-image.jpg" class="img-fluid user-img" alt="user-image"></li>
     </ul>
 </header>

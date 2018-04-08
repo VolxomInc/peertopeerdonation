@@ -22,15 +22,18 @@ class ProvideHelp extends Model
     protected $guarded = ['provider_id'];
 
     protected $fillable = [
+        'provider_new_id',
         'amount',
         'amount_left',
         'status',
         'assigned_member_id',
-        'wait_merge',
         'wait_provide',
         'created_at',
         'updated_at',
         'deleted_at',
         'user_id',
+        'reward',
+        'release_date',
+        'finish_time'
     ];
 }

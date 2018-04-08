@@ -16,7 +16,7 @@
 <header class="dashboard-navbar container-fluid px-4 py-3">
     <ul class="mb-0">
         <li><img src="/images/logo.png" class="img-fluid logo-img" alt="logo"></li>
-        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">Nana KBDA<span><a href="/sign-in"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
+        <li class="float-right"><p class="dashboard-navbar-text pt-3 pl-2">{{Auth::user()->user_name}}<span><a href="/logout"><i class="fa fa-power-off pl-2"></i></a></span></p></li>
         <li class="float-right"><img src="/images/user-image.jpg" class="img-fluid user-img" alt="user-image"></li>
     </ul>
 </header>
@@ -267,7 +267,6 @@
                     <thead>
                     <tr>
                         <th>Transaction ID</th>
-                        <th>Description </th>
                         <th>Created date</th>
                         <th>Release date</th>
                         <th>Amount</th>
@@ -277,106 +276,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>PG0012</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Pending</td>
-                    </tr>
-                    <tr>
-                        <td>PG0013</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Cancel</td>
-                    </tr>
-                    <tr>
-                        <td>PG0014</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Paid</td>
-                    </tr>
-                    <tr>
-                        <td>PG0015</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Paid</td>
-                    </tr>
-                    <tr>
-                        <td>PG0016</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Cancel</td>
-                    </tr>
-                    <tr>
-                        <td>PG0017</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Pending</td>
-                    </tr>
-                    <tr>
-                        <td>PG0018</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Paid</td>
-                    </tr>
-                    <tr>
-                        <td>PG0019</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Cancel</td>
-                    </tr>
-                    <tr>
-                        <td>PG0020</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Pending</td>
-                    </tr>
-                    <tr>
-                        <td>PG0021</td>
-                        <td>Description<br>here</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>2000gh¢</td>
-                        <td>Paid</td>
-                    </tr>
+                    @foreach($phHelps as $ph)
+                        <tr>
+                            <td>{{$ph->provider_new_id}}</td>
+                            <td><p class="mb-0 date">{{$ph->created_at}}</p></td>
+                            <td><p class="mb-0 date">@if(!empty($ph->release_date)) {{$ph->release_date}} @else - @endif</p></td>
+                            <td>{{$ph->amount}}gh¢</td>
+                            <td>{{$ph->amount_left}}gh¢</td>
+                            <td>@if(!empty($ph->reward)){{$ph->reward}}gh¢ @else - @endif</td>
+                            <td>@if($ph->status == 0) Pending @elseif($ph->status == -1) Cancel @elseif($ph->status == 1) Paid @elseif($ph->status == 2) Confirmed @endif</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

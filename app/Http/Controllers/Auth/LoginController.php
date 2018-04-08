@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Commitment;
+use App\Models\ProvideHelp;
+use App\Models\TransactionDetails;
+use App\Models\UserMessages;
 use App\Models\UserVerificationCode;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +13,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Auth;
 use App\Exceptions;
 use App\Helpers\Frontend\Auth\Socialite;
 use App\Events\Auth\UserLoggedIn;
@@ -37,6 +42,15 @@ class LoginController extends Controller
 
     public function openDashboard() {
         return redirect("/user-dashboard");
+    }
+
+    public function openLoginDashboard() {
+        $users = User::pluck('user_name', 'user_id');
+        $commitments = Commitment::where('user_id',Auth::id())->get();
+        $phHelps = ProvideHelp::where('user_id',Auth::id())->get();
+        $messages = UserMessages::get();
+        $transactionDetails = TransactionDetails::get();
+        return view('userdashboard')->with('commitments', $commitments)->with('phHelps',$phHelps)->with('users',$users)->with('messages',$messages)->with('transactionDetails',$transactionDetails);
     }
     /**
      * Show the application's login form.

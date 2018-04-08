@@ -4,27 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GetHelp extends Model
+class UserMessages extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-
-    protected $table = 'get_help';
-    protected $primaryKey = 'receiver_id';
+    protected $table = 'user_messages';
+    protected $primaryKey = 'message_id';
     /**
      * The attributes that are not mass assignable.
      *
      * @var array
      */
 
-    protected $guarded = ['receiver_id'];
+    protected $guarded = ['message_id'];
 
     protected $fillable = [
-        'receiver_new_id',
-        'amount_needed',
+        'message',
+        'provider_get_help_id',
         'user_id',
+        'created_at',
+        'updated_at',
     ];
 }

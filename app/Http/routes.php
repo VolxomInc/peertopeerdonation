@@ -69,9 +69,7 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     Route::group(['middleware' => ['web','auth']], function () {
         Route::get('logout', 'LoginController@logoutAs')->name('logout');
         Route::post('verifyCode', 'LoginController@verifyCode')->name('verify-user');
-        Route::get('/user-dashboard', function () {
-            return view('userdashboard');
-        });
+        Route::get('/user-dashboard', 'LoginController@openLoginDashboard');
 
         Route::get('/verification_code', function () {
             return view('verification_code');
@@ -99,11 +97,10 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 Route::group(['middleware' => ['web','auth']], function () {
     Route::post('provideHelp', 'DashboardController@provideUserHelp')->name('provide.help');
     Route::post('commitmentPool', 'DashboardController@commitmentsPool')->name('commitment.pool');
+    Route::get('provide_help_history', 'DashboardController@getPhHistory');
+    Route::get('commitments', 'DashboardController@getCommitments');
     Route::get('/forget_password', function () {
         return view('forget_password');
-    });
-    Route::get('/commitments', function () {
-        return view('commitment');
     });
     Route::get('/dashboard_news', function () {
         return view('dashboard_new');
@@ -117,9 +114,6 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/profile_settings', function () {
         return view('profile_settings');
     });
-    Route::get('/provide_help_history', function () {
-        return view('provide_help_history');
-    });
     Route::get('/rewards', function () {
         return view('rewards');
     });
@@ -129,4 +123,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/support_donation', function () {
         return view('support_donation');
     });
+
+    Route::get('/test-command', 'DashboardController@testCommand')->name('test.command');
+    Route::post('paymentOfProof', 'DashboardController@uploadPaymentProof')->name('payment.proof');
 });

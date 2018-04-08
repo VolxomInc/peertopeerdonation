@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Console\Commands;
 
 use App\Http\Libraries\Utilities;
 use App\Models\Commitment;
@@ -7,57 +8,34 @@ use App\Models\GetHelp;
 use App\Models\ProvideHelp;
 use App\Models\TransactionDetails;
 use App\Models\UserMessages;
-use App\User;
-use Validator;
-use App\Http\Controllers\Controller;
-use Auth;
-use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
+use Illuminate\Foundation\Inspiring;
+use Laravel\Socialite\One\User;
 
-/**
- * Class PagesController
- * @package App\Http\Controllers
- */
-class DashboardController extends Controller
+class ProvideHelpScheduler extends Command
 {
-    //sign up function which is dealing to register
-    public function provideUserHelp()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'provide-help-scheduler';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Scheduling provide help.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
     {
-        $request = Input::all();
-        $data['user_id'] = Auth::id();
-        $data['amount'] = $request['amount-input'];
-        $data['phone_number'] = $request->phone_number;
-        $data['currency'] = $request->currency;
-        $data['tigo_cash'] = $request->tigo_cash;
-        $data['mobile_money_name'] = $request->mobile_money_name;
-        $data['mobile_money_number'] = $request->mobile_money_number;
-        $data['bitcoin_address'] = $request->bitcoin_address;
-        $data['referrer_email'] = $request->referrer_email;
-        $data['manager_email'] = $request->manager_email;
-        $data['password'] = bcrypt($data['password']);
-        $data['role_id'] = 3;
-        $data['status'] = 0;
-
-        $phelp = new ProvideHelp($data);
-        $phelp->save();
-
-        return redirect("/user-dashboard");
-    }
-
-    public function commitmentsPool() {
-        $request = Input::all();
-        $data['user_id'] = Auth::id();
-        $data['amount'] = $request['amount-input'];
-        $current_time = Carbon::now()->toDateTimeString();
-        $data['finish_time'] = date('Y-m-d H:i:s', strtotime($current_time.' + 24 hours'));
-
-        $commitment = new Commitment($data);
-        $commitment->save();
-
-        return redirect("/user-dashboard");
-    }
-
-    public function testCommand() {
         $commitments = Commitment::get();
         foreach($commitments as $commitment){
             $difference = time() - strtotime($commitment->created_at);
@@ -103,35 +81,5 @@ class DashboardController extends Controller
                 }
             }
         }
-    }
-
-    public function uploadPaymentProof() {
-        $data = Input::all();
-        return redirect("/user-dashboard");
-//        if ($data->hasFile('choosefile')) {
-//            dd('here');
-//            $data['picture'] = Utilities::uploadPaymentOfProof($data);
-//        }
-    }
-
-    public function userDashboard() {
-        $users = User::pluck('user_name', 'user_id');
-        $commitments = Commitment::where('user_id',Auth::id())->get();
-        $phHelps = ProvideHelp::where('user_id',Auth::id())->get();
-        $messages = UserMessages::get();
-        $transactionDetails = TransactionDetails::get();
-        return view('userdashboard')->with('commitments', $commitments)->with('phHelps',$phHelps)->with('users',$users)->with('messages',$messages)->with('transactionDetails',$transactionDetails);
-    }
-
-    public function getPhHistory() {
-        $users = User::pluck('user_name', 'user_id');
-        $phHelps = ProvideHelp::where('user_id',Auth::id())->get();
-        return view('provide_help_history')->with('phHelps',$phHelps)->with('users',$users);
-    }
-
-    public function getCommitments() {
-        $users = User::pluck('user_name', 'user_id');
-        $commitments = Commitment::where('user_id',Auth::id())->get();
-        return view('commitment')->with('commitments', $commitments)->with('users',$users);
     }
 }
