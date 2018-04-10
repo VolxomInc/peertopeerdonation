@@ -111,7 +111,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Registration data</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $created_at = explode(' ',Auth::user()->created_at);?>
+                                        <p class="step-date mb-0">{{$created_at[0]}} | {{$created_at[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +133,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Last Access</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $last_login = explode(' ',Auth::user()->last_login_at);?>
+                                        <p class="step-date mb-0">{{$last_login[0]}} | {{$last_login[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +155,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">IP Address</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{Auth::user()->last_login_ip}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +170,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Referral Link</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{url('/').'/?ref='.Auth::user()->affiliate_id}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -193,18 +195,19 @@
                                                     <h2 class="text-center work-title">PROVIDE HELP</h2>
                                                     <p class="sidebar-para pb-4"><span><i class="fa fa-check"></i></span> GHC (gh¢)</p>
                                                     <p class="sidebar-para">GHC (gh¢)</p>
-                                                    <form>
+                                                    <form method="post" action="{{ route('commitment.pool') }}">
+                                                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
                                                         <div class="form-group">
-                                                            <input class="form-control" type="number" value="0.00" id="example-number-input">
+                                                            <input class="form-control" type="number" value="0.00" id="amount-input" name="amount-input">
                                                         </div>
                                                         <div class="form-check pt-2">
                                                             <label class="form-check-label">
-                                                                <input type="checkbox" class="form-check-input">
+                                                                <input type="checkbox" class="form-check-input" id="check-warning">
                                                                 I read the <a href="">‘The Warning’</a> and I fully understand all the risks. I make decision to participate in GDC, being of sound mind and memory.
                                                             </label>
                                                         </div>
                                                         <div class="text-center mt-5 mb-4">
-                                                            <button class="btn btn-primary  py-2" type="submit">Submit</button>
+                                                            <button class="btn btn-primary  py-2" type="submit" id="submit-help">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -269,442 +272,18 @@
                         <th>Transaction ID</th>
                         <th>Created date</th>
                         <th>Amount</th>
-                        <th>Receive Name</th>
-                        <th class="text-center">PoP</th>
                         <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop1"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-
-
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-
-
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop2"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop3"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop4"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop5"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                    </tr>
-                    <!-- Start pop model -->
-                    <div class="modal fade btn-position" id="pop5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <div class="modal-body modalpopuparea">
-                                    <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                    <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                    <form class="">
-
-
-                                        <div class="form-group text-center pt-5">
-                                            <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                        </div>
-                                        <div class="text-center pt-3">
-                                            <button class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- End pop model -->
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop6"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="incomming-donation-text pt-4">GH (Incoming Donation)</p>
-            <div class="table-responsive">
-                <table class="table table-striped dashboard-table table-sm">
-                    <thead>
-                    <tr>
-                        <th>Transaction ID</th>
-                        <th>Created date</th>
-                        <th>Amount</th>
-                        <th>Receive Name</th>
-                        <th class="text-center">PoP</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop7"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop7" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop8"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop8" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop9"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop9" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop10"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop10" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop11"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop11" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-                    </tr>
-                    <tr>
-                        <td>PM209202</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>2000gh¢</td>
-                        <td><a href="">Ebenezer</a></td>
-                        <td class="text-center py-1"><a href="" class="text-color-cls" data-toggle="modal" data-target="#pop12"><img src="images/file.png" class="img-fluid" alt="file"><p class="table-text mb-0">View</p></a></td>
-                        <td>Pending</td>
-                        <!-- Start pop model -->
-                        <div class="modal fade btn-position" id="pop12" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="modal-body modalpopuparea">
-                                        <h2 class="text-center title-popup pb-5">PROOF OF PAYMENT</h2>
-                                        <p class="small-title text-center">UPLOAD PROOF OF PAYMENT</p>
-                                        <form class="">
-
-
-                                            <div class="form-group text-center pt-5">
-                                                <input type="file" name="choosefilearea" class="choosefilearea"  id="choosefile" >
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- End pop model -->
-
-                    </tr>
+                    @foreach($commitments as $commitment)
+                        <tr>
+                            <td>{{$commitment->commitment_id}}</td>
+                            <td><p class="mb-0 date">{{$commitment->created_at}}</p></td>
+                            <td>{{$commitment->amount}}gh¢</td>
+                            <td>Pending</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

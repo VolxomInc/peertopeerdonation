@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Auth;
+use Cookie;
 
 /**
  * Class PagesController
@@ -19,6 +20,7 @@ class UserController extends Controller
     //sign up function which is dealing to register
     public function storeUser(SignUpRequest $request)
     {
+        $referred_by = Cookie::get('referral');
         $data = $request->all();
         $data['user_name'] = $request->user_name;
         $data['email'] = $request->email;
@@ -33,6 +35,8 @@ class UserController extends Controller
         $data['password'] = bcrypt($data['password']);
         $data['role_id'] = 3;
         $data['status'] = 0;
+        $data['affiliate_id'] = str_random(10);
+        $data['referred_by'] = $referred_by;
 
         $user = new User($data);
         $user->save();

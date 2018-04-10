@@ -5,6 +5,7 @@ use App\Http\Libraries\Utilities;
 use App\Models\Commitment;
 use App\Models\GetHelp;
 use App\Models\ProvideHelp;
+use App\Models\Tickets;
 use App\Models\TransactionDetails;
 use App\Models\UserMessages;
 use App\User;
@@ -133,5 +134,15 @@ class DashboardController extends Controller
         $users = User::pluck('user_name', 'user_id');
         $commitments = Commitment::where('user_id',Auth::id())->get();
         return view('commitment')->with('commitments', $commitments)->with('users',$users);
+    }
+
+    public function profileSettings(){
+        $userData = User::where('user_id',Auth::id())->get();
+        return view('profile_settings')->with('userData',$userData);
+    }
+
+    public function supportDonation() {
+        $ticketData = Tickets::where('user_id',Auth::id())->get();
+        return view('support_donation')->with('ticketData',$ticketData);
     }
 }

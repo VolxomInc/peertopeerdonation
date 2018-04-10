@@ -111,7 +111,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Registration data</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $created_at = explode(' ',Auth::user()->created_at);?>
+                                        <p class="step-date mb-0">{{$created_at[0]}} | {{$created_at[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +133,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Last Access</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $last_login = explode(' ',Auth::user()->last_login_at);?>
+                                        <p class="step-date mb-0">{{$last_login[0]}} | {{$last_login[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +155,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">IP Address</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{Auth::user()->last_login_ip}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +170,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Referral Link</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{url('/').'/?ref='.Auth::user()->affiliate_id}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -193,18 +195,19 @@
                                                     <h2 class="text-center work-title">PROVIDE HELP</h2>
                                                     <p class="sidebar-para pb-4"><span><i class="fa fa-check"></i></span> GHC (gh¢)</p>
                                                     <p class="sidebar-para">GHC (gh¢)</p>
-                                                    <form>
+                                                    <form method="post" action="{{ route('commitment.pool') }}">
+                                                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
                                                         <div class="form-group">
-                                                            <input class="form-control" type="number" value="0.00" id="example-number-input">
+                                                            <input class="form-control" type="number" value="0.00" id="amount-input" name="amount-input">
                                                         </div>
                                                         <div class="form-check pt-2">
                                                             <label class="form-check-label">
-                                                                <input type="checkbox" class="form-check-input">
+                                                                <input type="checkbox" class="form-check-input" id="check-warning">
                                                                 I read the <a href="">‘The Warning’</a> and I fully understand all the risks. I make decision to participate in GDC, being of sound mind and memory.
                                                             </label>
                                                         </div>
                                                         <div class="text-center mt-5 mb-4">
-                                                            <button class="btn btn-primary  py-2" type="submit">Submit</button>
+                                                            <button class="btn btn-primary  py-2" type="submit" id="submit-help">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -275,41 +278,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>47796</td>
-                        <td>Fund Not Received</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>Under Process</td>
-                        <td><a href="" class="text-color-cls">Click Here To View</a></td>
-                    </tr>
-                    <tr>
-                        <td>47797</td>
-                        <td>Problem with creation of withdrawal orders</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>Under Process</td>
-                        <td><a href="" class="text-color-cls">Click Here To View</a></td>
-                    </tr>
-                    <tr>
-                        <td>47798</td>
-                        <td>Fund Not Received</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>Under Process</td>
-                        <td><a href="" class="text-color-cls">Click Here To View</a></td>
-                    </tr>
-                    <tr>
-                        <td>47799</td>
-                        <td>Problem with Funds</td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>Ticket Closed</td>
-                        <td><a href="" class="text-color-cls">Click Here To View</a></td>
-                    </tr>
-                    <tr>
-                        <td>47795</td>
-                        <td>Table Helps </td>
-                        <td><p class="mb-0 date">03/13/2018</p><p class="mb-0 time">17:45:03</p></td>
-                        <td>Ticket Closed</td>
-                        <td><a href="" class="text-color-cls">Click Here To View</a></td>
-                    </tr>
+                    @foreach($ticketData as $ticket)
+                        <tr>
+                            <td>{{$ticket->ticket_id}}</td>
+                            <td>{{$ticket->topic}}</td>
+                            <td><p class="mb-0 date">{{$ticket->created_at}}</p></td>
+                            <td>{{$ticket->status}}</td>
+                            <td><a href="" class="text-color-cls">Click Here To View</a></td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

@@ -21,7 +21,7 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web','checkReferral']], function () {
     Route::get('/', function () {
         return view('index');
     });
@@ -66,7 +66,7 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     /**
      * These routes require the user to be logged in
      */
-    Route::group(['middleware' => ['web','auth']], function () {
+    Route::group(['middleware' => ['web','auth','checkReferral']], function () {
         Route::get('logout', 'LoginController@logoutAs')->name('logout');
         Route::post('verifyCode', 'LoginController@verifyCode')->name('verify-user');
         Route::get('/user-dashboard', 'LoginController@openLoginDashboard');
@@ -94,11 +94,13 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     });
 });
 
-Route::group(['middleware' => ['web','auth']], function () {
+Route::group(['middleware' => ['web','auth','checkReferral']], function () {
     Route::post('provideHelp', 'DashboardController@provideUserHelp')->name('provide.help');
     Route::post('commitmentPool', 'DashboardController@commitmentsPool')->name('commitment.pool');
     Route::get('provide_help_history', 'DashboardController@getPhHistory');
     Route::get('commitments', 'DashboardController@getCommitments');
+    Route::get('profile_settings', 'DashboardController@profileSettings');
+    Route::get('support_donation', 'DashboardController@supportDonation');
     Route::get('/forget_password', function () {
         return view('forget_password');
     });
@@ -111,17 +113,11 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/my_team', function () {
         return view('my_team');
     });
-    Route::get('/profile_settings', function () {
-        return view('profile_settings');
-    });
     Route::get('/rewards', function () {
         return view('rewards');
     });
     Route::get('/super_admin_dashboard', function () {
         return view('super_admin_dashboard');
-    });
-    Route::get('/support_donation', function () {
-        return view('support_donation');
     });
 
     Route::get('/test-command', 'DashboardController@testCommand')->name('test.command');

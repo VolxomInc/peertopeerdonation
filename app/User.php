@@ -31,7 +31,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['email', 'password','user_name','phone_number','currency','tigo_cash','mobile_money_name','mobile_money_number','bitcoin_address','referrer_email','manager_email'];
+    protected $fillable = ['email', 'password','user_name','phone_number','currency','tigo_cash','mobile_money_name','mobile_money_number','bitcoin_address','referrer_email','manager_email','affiliate_id', 'referred_by','last_login_ip','last_login_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

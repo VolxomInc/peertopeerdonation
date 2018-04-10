@@ -90,7 +90,7 @@
         </div>
         <div class="col-lg-9 col-md-9">
             <div class="row">
-                <div class="col-lg-11">
+                <div class="col-lg-10">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 mb-3 mb-lg-0">
                             <div class="step py-3">
@@ -111,7 +111,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Registration data</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $created_at = explode(' ',Auth::user()->created_at);?>
+                                        <p class="step-date mb-0">{{$created_at[0]}} | {{$created_at[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +133,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Last Access</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $last_login = explode(' ',Auth::user()->last_login_at);?>
+                                        <p class="step-date mb-0">{{$last_login[0]}} | {{$last_login[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +155,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">IP Address</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{Auth::user()->last_login_ip}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +170,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Referral Link</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{url('/').'/?ref='.Auth::user()->affiliate_id}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -193,6 +195,46 @@
                                                     <h2 class="text-center work-title">PROVIDE HELP</h2>
                                                     <p class="sidebar-para pb-4"><span><i class="fa fa-check"></i></span> GHC (gh¢)</p>
                                                     <p class="sidebar-para">GHC (gh¢)</p>
+                                                    <form method="post" action="{{ route('commitment.pool') }}">
+                                                        <input name="_token" type="hidden" value="{{ csrf_token() }}">
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="number" value="0.00" id="amount-input" name="amount-input">
+                                                        </div>
+                                                        <div class="form-check pt-2">
+                                                            <label class="form-check-label">
+                                                                <input type="checkbox" class="form-check-input" id="check-warning">
+                                                                I read the <a href="">‘The Warning’</a> and I fully understand all the risks. I make decision to participate in GDC, being of sound mind and memory.
+                                                            </label>
+                                                        </div>
+                                                        <div class="text-center mt-5 mb-4">
+                                                            <button class="btn btn-primary  py-2" type="submit" id="submit-help">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- End provide Help model -->
+
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3 mb-lg-0">
+                                <div class="get-help-text">
+                                    <p class="provide-and-get-para mb-0 text-center"><a href="" class="py-2 get-ancher" data-toggle="modal" data-target="#gethelp">get help</a></p>
+
+                                    <!-- Start get Help model -->
+                                    <div class="modal fade btn-position" id="gethelp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <div class="modal-body">
+                                                    <h2 class="text-center work-title">GET HELP</h2>
+                                                    <p class="sidebar-para pb-4"><span><i class="fa fa-check"></i></span> GHC (gh¢)</p>
+                                                    <p class="sidebar-para">GHC (gh¢)</p>
                                                     <form>
                                                         <div class="form-group">
                                                             <input class="form-control" type="number" value="0.00" id="example-number-input">
@@ -212,70 +254,11 @@
                                         </div>
                                     </div>
 
-                                    <!-- End provide Help model -->
-
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 mb-3 mb-lg-0">
-                                <div class="get-help-text">
-                                    <p class="provide-and-get-para mb-0 text-center"><a href="" class="py-2 get-ancher" data-toggle="modal" data-target="#getready111">get help</a></p>
-
-                                    <!-- Start GEt ready popup -->
-                                    <div class="modal fade btn-position" id="getready111" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <div class="modal-body">
-                                                    <h2 class="text-center title-popup">CREAT GET HELP</h2>
-                                                    <p class="para popupgray-color text-center">Your current reward balance is<span>2400gh¢</span></p>
-                                                    <form method="get">
-                                                        <select multiple="multiple" onchange="console.log('changed', this)" placeholder="Select your miture reward(s) " class="SlectBox" required>
-                                                            <option value="volvo">PH0012 reward amount is 500gh¢</option>
-                                                            <option value="saab">PH0013 reward amount is 300gh¢</option>
-                                                            <option value="mercedes">PH0014 reward amount is 1000gh¢</option>
-                                                            <option value="audi">PH0015 reward amount is 600gh¢</option>
-                                                        </select>
-                                                    </form>
-                                                    <div class="row pt-5">
-                                                        <div class="col-sm-6 px-4">
-                                                            <a href="" class="btn btn-primary float-right btn py-2 px-3 btn-area-cls" data-dismiss="modal" aria-label="Close">Cancel</a>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <a href="" class="btn btn-primary py-2 px-3 btn-area-cls " data-toggle="modal" data-target="#recommitment5" data-dismiss="modal">Confirm</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Get ready popup -->
-
-                                    <!-- Start Approve recommitment popup -->
-                                    <div class="modal fade btn-position" id="recommitment111" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <div class="modal-body">
-                                                    <h2 class="text-center title-popup ">IRRELEVANT AMOUNT</h2>
-                                                    <p class="para popupgray-color text-center px-4">You can only GH against transactional reward. Please enter an amount equivalent to one, two or all matured PH requests.</p>
-                                                    <div class="text-center">
-                                                        <a href="" class="btn btn-primary py-2 px-5 btn-area-cls" data-dismiss="modal" aria-label="Close">Ok</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Approve recommitment popup -->
+                                    <!-- End Get Help model -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p class="outgoing-donation-text pt-5">Reward<span class="total-reward-cls float-right">Total Reward: <span>2400gh¢</span></span></p>
                 </div>
             </div>
             <!-- Start Tabs content area -->

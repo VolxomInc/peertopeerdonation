@@ -111,7 +111,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Registration data</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $created_at = explode(' ',Auth::user()->created_at);?>
+                                        <p class="step-date mb-0">{{$created_at[0]}} | {{$created_at[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +133,8 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Last Access</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <?php $last_login = explode(' ',Auth::user()->last_login_at);?>
+                                        <p class="step-date mb-0">{{$last_login[0]}} | {{$last_login[1]}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +155,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">IP Address</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{Auth::user()->last_login_ip}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +170,7 @@
                                     </div>
                                     <div class="col-lg-9 px-4 pt-1">
                                         <p class="step-heading mb-0">Referral Link</p>
-                                        <p class="step-date mb-0">01-03-2018 | 12:25 PM</p>
+                                        <p class="step-date mb-0">{{url('/').'/?ref='.Auth::user()->affiliate_id}}</p>
                                     </div>
                                 </div>
                             </div>
